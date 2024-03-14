@@ -14,22 +14,43 @@
 
 int stack_size(int argc, char **argv)
 {
-    int i;
-    int j;
-    int size;
-
-    i = 1;
-    size = 0;
-    while (i < argc)
+    int size = 0;
+    for (int i = 1; i < argc; i++)
     {
-        j = 0;
-        while (argv[i][j] != '\0')
-        {
-            if (argv[i][j] != ' ')
-                size++;
-            j++;
-        }
+        size += ft_strlen(argv[i]);
+    }
+    return size;
+}
+
+int ft_strlen(char *str)
+{
+    int i = 0;
+    while (str[i] != '\0')
+        i++;
+    return i;
+}
+
+int ft_atoi(char *str)
+{
+    int i;
+    int sign;
+    int result;
+
+    i = 0;
+    sign = 1;
+    result = 0;
+    while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+        i++;
+    if (str[i] == '-' || str[i] == '+')
+    {
+        if (str[i] == '-')
+            sign = -1;
         i++;
     }
-    return (size);
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        result = result * 10 + str[i] - '0';
+        i++;
+    }
+    return (result * sign);
 }
