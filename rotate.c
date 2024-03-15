@@ -44,6 +44,8 @@ void rotate_b(long *stack_b, int *num_stack_b)
         i++;
     }
     stack_b[i] = temp;
+    for (int i = 0; i < num_stack_b[0]; i++)
+        printf("stack_b[%d] = %ld\n", i, stack_b[i]);
     write(1, "rb\n", 3);
 }
 
@@ -51,5 +53,9 @@ void rotate_ab(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b)
 {
     rotate_a(stack_a, num_stack_a);
     rotate_b(stack_b, num_stack_b);
+    for (int i = 0; i < num_stack_a[0]; i++)
+        printf("stack_a[%d] = %ld\n", i, stack_a[i]);
+    for (int i = 0; i < num_stack_b[0]; i++)
+        printf("stack_b[%d] = %ld\n", i, stack_b[i]);
     write(1, "rr\n", 3);
 }

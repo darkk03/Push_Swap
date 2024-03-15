@@ -35,14 +35,14 @@ void ft_checker(int argc, char **argv, int *num_stack_a, int *num_stack_b)
     }
 }
 
-void ft_stack_algoritm(long *stack_a, int *num_stack_a)
+void ft_stack_algoritm(long *stack_a, int *num_stack_a, long *stack_b, int *num_stack_b)
 {
     if ((num_stack_a[1] == 2) && (stack_a[0] > stack_a[1]))
         rotate_a(stack_a, num_stack_a);
     else if (num_stack_a[1] == 3)
         sort_3(stack_a, num_stack_a);
-    // else if (num_stack_a[1] == 5)
-    // 	sort_5(stack_a, stack_b, num_stack_a, num_stack_b);
+    else if (num_stack_a[1] == 5)
+    	sort_5(stack_a, stack_b, num_stack_a, num_stack_b);
     // else
     // 	sort(stack_a, stack_b, num_stack_a, num_stack_b);
 }
@@ -69,7 +69,9 @@ int main(int argc, char **argv)
     stack_a = (long *)malloc(sizeof(long) * stack_size(argc, argv));
     stack_b = (long *)malloc(sizeof(long) * stack_size(argc, argv));
     fill_stack(argc, argv, stack_a);
-    ft_stack_algoritm(stack_a, num_stack_a);
+    if(checkparams(stack_a, num_stack_a) == -1)
+        ft_free_stack(stack_a, stack_b, num_stack_a, num_stack_b);
+    ft_stack_algoritm(stack_a, num_stack_a, stack_b, num_stack_b);
     ft_free_stack(stack_a, stack_b, num_stack_a, num_stack_b);
     return (0);
 }
