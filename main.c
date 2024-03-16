@@ -43,8 +43,8 @@ void ft_stack_algoritm(long *stack_a, int *num_stack_a, long *stack_b, int *num_
         sort_3(stack_a, num_stack_a);
     else if (num_stack_a[1] == 5)
     	sort_5(stack_a, stack_b, num_stack_a, num_stack_b);
-    // else
-    // 	sort(stack_a, stack_b, num_stack_a, num_stack_b);
+    else
+    	sort(stack_a, stack_b, num_stack_a, num_stack_b);
 }
 
 

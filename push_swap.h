@@ -64,6 +64,9 @@ void reverse_rotate_a(long *stack_a, int *num_stack_a);
 //sorts 5 numbers
 
 void sort_5(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+void sorting(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+void sorting_a_push1(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+void sorting_a_push2(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
 
 //sorts 3 numbers
 

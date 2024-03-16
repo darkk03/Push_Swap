@@ -27,7 +27,7 @@ void reverse_rotate_a(long *stack_a, int *num_stack_a)
     stack_a[i] = temp;
     for (int i = 0; i < num_stack_a[0]; i++)
         printf("stack_a[%d] = %ld\n", i, stack_a[i]);
-    write(1, "rra\n", 3);
+    write(1, "rra\n", 4);
 }
 
 void reverse_rotate_b(long *stack_b, int *num_stack_b)
@@ -45,7 +45,7 @@ void reverse_rotate_b(long *stack_b, int *num_stack_b)
     stack_b[i] = temp;
     for (int i = 0; i < num_stack_b[0]; i++)
         printf("stack_b[%d] = %ld\n", i, stack_b[i]);
-    write(1, "rrb\n", 3);
+    write(1, "rrb\n", 4);
 }
 
 void reverse_rotate_ab(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b)
@@ -56,5 +56,5 @@ void reverse_rotate_ab(long *stack_a, long *stack_b, int *num_stack_a, int *num_
         printf("stack_a[%d] = %ld\n", i, stack_a[i]);
     for (int i = 0; i < num_stack_b[0]; i++)
         printf("stack_b[%d] = %ld\n", i, stack_b[i]);
-    write(1, "rrr\n", 3);
+    write(1, "rrr\n", 4);
 }
