@@ -5,52 +5,76 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 15:38:33 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/13 15:38:33 by aaizenbe         ###   ########.fr       */
+/*   Created: 2024/03/18 14:32:33 by aaizenbe          #+#    #+#             */
+/*   Updated: 2024/03/18 14:32:33 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int stack_size(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-    int size = 0;
-    for (int i = 1; i < argc; i++)
-    {
-        size += ft_strlen(argv[i]);
-    }
-    return size;
+	int	i;
+	int	neg;
+	int	res;
+
+	i = 0;
+	neg = 1;
+	res = 0;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+		{
+			neg = -1;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (str[i] - '0') + (res * 10);
+		i++;
+	}
+	return (res * neg);
 }
 
-int ft_strlen(char *str)
+t_list	*get_next_min(t_list **stack)
 {
-    int i = 0;
-    while (str[i] != '\0')
-        i++;
-    return i;
+	t_list	*head;
+	t_list	*min;
+	int		has_min;
+
+	min = NULL;
+	has_min = 0;
+	head = *stack;
+	if (head)
+	{
+		while (head)
+		{
+			if ((head->index == -1) && (!has_min || head->value < min->value))
+			{
+				min = head;
+				has_min = 1;
+			}
+			head = head->next;
+		}
+	}
+	return (min);
 }
 
-int ft_atoi(char *str)
+void	index_stack(t_list **stack)
 {
-    int i;
-    int sign;
-    int result;
+	t_list	*head;
+	int		index;
 
-    i = 0;
-    sign = 1;
-    result = 0;
-    while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-        i++;
-    if (str[i] == '-' || str[i] == '+')
-    {
-        if (str[i] == '-')
-            sign = -1;
-        i++;
-    }
-    while (str[i] >= '0' && str[i] <= '9')
-    {
-        result = result * 10 + str[i] - '0';
-        i++;
-    }
-    return (result * sign);
+	index = 0;
+	head = get_next_min(stack);
+	while (head)
+	{
+		head->index = index++;
+		head = get_next_min(stack);
+	}
 }

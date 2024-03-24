@@ -14,9 +14,10 @@ NAME = push_swap
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC =	main.c mem.c sort_3.c utils.c swap.c rotate.c \
-		revers_rotate.c fill_stack.c checkparams.c sort_5.c \
-		push.c
+SRC =	main.c ft_lstadd_back.c ft_lstnew.c ft_lstsize.c \
+		ft_split.c ft_push.c radix.c utils.c ft_rotate.c \
+		mem.c checker_utils.c ft_swap.c ft_reverse_rotate.c \
+		sort.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

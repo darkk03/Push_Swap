@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem.c                                              :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 22:15:17 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/23 22:15:17 by aaizenbe         ###   ########.fr       */
+/*   Created: 2023/12/07 14:42:16 by aaizenbe          #+#    #+#             */
+/*   Updated: 2023/12/07 14:42:16 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free(char **str)
+t_list	*ft_lstnew(int value)
 {
-	int	i;
+	t_list	*new;
 
-	i = 0;
-	while (str[i])
-		i++;
-	while (i >= 0)
-		free(str[i--]);
-}
-
-void ft_free_stack(t_list **stack)
-{
-    t_list	*tmp;
-
-    while (*stack)
-    {
-        tmp = *stack;
-        *stack = (*stack)->next;
-        free(tmp);
-    }
-    free(*stack);
+	new = (t_list *) malloc(sizeof(*new));
+	if (!new)
+		return (NULL);
+	new->value = value;
+	new->index = -1;
+	new->next = NULL;
+	return (new);
 }

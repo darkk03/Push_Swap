@@ -10,13 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct s_list
+{
+	int				value;
+	int				index;
+	struct s_list	*next;
+}				t_list;
 
 // printf library
 # include <stdio.h>
@@ -25,68 +30,72 @@
 // main
 
 int main(int argc, char **argv);
-void ft_setnums(int *num_stack_a, int *num_stack_b, int argc);
-void ft_stack_algoritm(long *stack_a, int *num_stack_a, long *stack_b, int *num_stack_b);
-void ft_checker(int argc, char **argv, int *num_stack_a, int *num_stack_b);
+void	fill_stack(t_list **stack, int argc, char **argv);
+int check_params(int argc, char **argv, t_list **stack_a);
+void sort(t_list **stack_a, t_list **stack_b);
 
-// memory
+// libft
 
-void ft_exit(int *num_stack_a, int *num_stack_b);
-void ft_free_stack(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstnew(int content);
+int	ft_lstsize(t_list *lst);
+int	ft_wordcount(const char *str, char c);
+char	ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strndup(const char *src, size_t n);
+char	**ft_split(char const *s, char c);
 
 // utils
 
-int ft_atoi(char *str);
-int ft_strlen(char *str);
-int stack_size(int argc, char **argv);
+int	ft_atoi(const char *str);
+void	index_stack(t_list **stack);
 
 // push
 
-void push_a(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
-void push_b(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
-
-//swap
-
-void swap_a(long *stack_a, int *num_stack_a);
-void swap_b(long *stack_b, int *num_stack_b);
-void swap_ab(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+int push(t_list **src, t_list **dst);
+void pa(t_list **stack_a, t_list **stack_b);
+void pb(t_list **stack_a, t_list **stack_b);
 
 // rotate
 
-void rotate_a(long *stack_a, int *num_stack_a);
-void rotate_b(long *stack_b, int *num_stack_b);
-void rotate_ab(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+int	rotate(t_list **stack);
+void	ra(t_list **stack_a);
+void	rb(t_list **stack_b);
+void	rr(t_list **stack_a, t_list **stack_b);
+
+// swap
+
+int    swap(t_list **stack);
+void	sa(t_list **stack_a);
+void	sb(t_list **stack_b);
+void	ss(t_list **stack_a, t_list **stack_b);
 
 // reverse rotate
 
-void reverse_rotate_a(long *stack_a, int *num_stack_a);
+int	reverse_rotate(t_list **stack);
+void	rra(t_list **stack_a);
+void	rrb(t_list **stack_b);
+void	rrr(t_list **stack_a, t_list **stack_b);
 
-//sorts 5 numbers
+// radix
 
-void sort_5(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
-void sorting(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
-void sorting_a_push1(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
-void sorting_a_push2(long *stack_a, long *stack_b, int *num_stack_a, int *num_stack_b);
+int	get_max_bits(t_list **stack);
+void	radix_sort(t_list **stack_a, t_list **stack_b);
 
-//sorts 3 numbers
+// checker utils
 
-void sort_3(long *stack_a, int *num_stack_a);
+int is_number(char *str);
+int is_duplicate(char **args, int i);
+int is_sorted(t_list *stack);
 
-//parametres checker
+// memory
 
-int checkparams(long *stack_a, int *num_stack_a);
-int numbers_limit(long *stack_a, int *num_stack_a);
-int repeated_numbers(long *stack_a, int *num_stack_a);
-int stack_is_sorted(long *stack_a, int *num_stack_a);
+void	ft_free(char **str);
+void ft_free_stack(t_list **stack);
 
-//utils
+// sort 
 
-int stack_size(int argc, char **argv);
-int ft_strlen(char *str);
-int ft_atoi(char *str);
-
-// fill stack
-
-void fill_stack(int argc, char **argv, long *stack_a);
+void 	sort_3(t_list **stack_a);
+void 	sort_4(t_list **stack_a, t_list **stack_b);
+void	sort_5(t_list **stack_a, t_list **stack_b);
 
 #endif

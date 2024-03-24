@@ -5,73 +5,108 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 14:06:40 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/13 14:06:40 by aaizenbe         ###   ########.fr       */
+/*   Created: 2024/03/18 12:06:17 by aaizenbe          #+#    #+#             */
+/*   Updated: 2024/03/18 12:06:17 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_checker(int argc, char **argv, int *num_stack_a, int *num_stack_b)
+void	fill_stack(t_list **stack, int argc, char **argv)
+{
+	t_list	*new;
+	char	**args;
+	int		i;
+
+	i = 0;
+	if (argc == 2)
+		args = ft_split(argv[1], ' ');
+	else
+	{
+		i = 1;
+		args = argv;
+	}
+	while (args[i])
+	{
+		new = ft_lstnew(ft_atoi(args[i]));
+		ft_lstadd_back(stack, new);
+		i++;
+	}
+	index_stack(stack);
+	if (argc == 2)
+		ft_free(args);
+}
+
+int check_params(int argc, char **argv, t_list **stack_a)
 {
     int i;
-    int j;
+    long tmp;
+    char **args;
 
-    i = 1;
-    j = 0;
+    i = 0;
 
-    if (argc < 2)
-        ft_exit(num_stack_a, num_stack_b);
-    while (i < argc)
+    if (argc == 2)
+        args = ft_split(argv[1], ' ');
+    else
     {
-        j = 0;
-        while (argv[i][j] != '\0')
-        {
-            if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != ' ' && argv[i][j] != '-')
-                ft_exit(num_stack_a, num_stack_b);
-            j++;
-        }
+        args = argv;
+        i = 1;
+    }
+    while (args[i])
+    {
+        tmp = ft_atoi(args[i]);
+        if (tmp > 2147483647 || tmp < -2147483648)
+            write(1, "limit\n", 6);
+        if (is_number(args[i]) == -1)
+            return (-1);
+        if (is_duplicate(args, i) == -1)
+            return (-1);
+        if (is_sorted(*stack_a) == -1)
+            return (-1);
         i++;
     }
+    return (0);
 }
 
-void ft_stack_algoritm(long *stack_a, int *num_stack_a, long *stack_b, int *num_stack_b)
+void sort(t_list **stack_a, t_list **stack_b)
 {
-    if ((num_stack_a[1] == 2) && (stack_a[0] > stack_a[1]))
-        rotate_a(stack_a, num_stack_a);
-    else if (num_stack_a[1] == 3)
-        sort_3(stack_a, num_stack_a);
-    else if (num_stack_a[1] == 5)
-    	sort_5(stack_a, stack_b, num_stack_a, num_stack_b);
+    if(ft_lstsize(*stack_a) == 2)
+        sa(stack_a);
+    else if(ft_lstsize(*stack_a) == 3)
+        sort_3(stack_a);
+    else if(ft_lstsize(*stack_a) == 4)
+        sort_4(stack_a, stack_b);
+    else if(ft_lstsize(*stack_a) == 5)
+        sort_5(stack_a, stack_b);
     else
-    	sort(stack_a, stack_b, num_stack_a, num_stack_b);
-}
-
-
-void ft_setnums(int *num_stack_a, int *num_stack_b, int argc)
-{
-    num_stack_a[0] = argc - 1;
-    num_stack_a[1] = num_stack_a[0];
-    num_stack_b[0] = 0;
+        radix_sort(stack_a, stack_b);
 }
 
 int main(int argc, char **argv)
 {
-    long *stack_a;
-    long *stack_b;
-    int *num_stack_a;
-    int *num_stack_b;
+    t_list **stack_a;
+    t_list **stack_b;
 
-    num_stack_a = (int *)malloc(2 * sizeof(int));
-    num_stack_b = (int *)malloc(sizeof(int));
-    ft_checker(argc, argv, num_stack_a, num_stack_b);
-    ft_setnums(num_stack_a, num_stack_b, argc);
-    stack_a = (long *)malloc(sizeof(long) * stack_size(argc, argv));
-    stack_b = (long *)malloc(sizeof(long) * stack_size(argc, argv));
-    fill_stack(argc, argv, stack_a);
-    if(checkparams(stack_a, num_stack_a) == -1)
-        ft_free_stack(stack_a, stack_b, num_stack_a, num_stack_b);
-    ft_stack_algoritm(stack_a, num_stack_a, stack_b, num_stack_b);
-    ft_free_stack(stack_a, stack_b, num_stack_a, num_stack_b);
+	if (argc < 2)
+		return (-1);
+    stack_a = (t_list **)malloc(sizeof(t_list));
+    stack_b = (t_list **)malloc(sizeof(t_list));
+    *stack_a = NULL;
+    *stack_b = NULL;
+    fill_stack(stack_a, argc, argv);
+	if(check_params(argc, argv, stack_a) == -1)
+    {
+        ft_free_stack(stack_a);
+        ft_free_stack(stack_b);
+        return (-1);
+    }
+    sort(stack_a, stack_b);
+    while (*stack_a)
+	{
+		printf("%d\n", (*stack_a)->value);
+		*stack_a = (*stack_a)->next;
+	}
+	ft_free_stack(stack_a);
+	ft_free_stack(stack_b);
     return (0);
 }

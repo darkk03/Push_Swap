@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_stack.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 22:52:39 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/14 22:52:39 by aaizenbe         ###   ########.fr       */
+/*   Created: 2023/12/10 14:14:18 by aaizenbe          #+#    #+#             */
+/*   Updated: 2023/12/10 14:14:18 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void fill_stack(int argc, char **argv, long *stack_a)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-    int i;
+	t_list	*list;
 
-    i = 1;
-
-    while (i < argc)
-    {
-        stack_a[i - 1] = ft_atoi(argv[i]);
-        i++;
-    }
+	if (lst == NULL)
+	{
+		return ;
+	}
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	list = *lst;
+	while (list->next != NULL)
+	{
+		list = list->next;
+	}
+	list->next = new;
 }

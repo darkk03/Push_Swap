@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem.c                                              :+:      :+:    :+:   */
+/*   ft_push.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 22:15:17 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/23 22:15:17 by aaizenbe         ###   ########.fr       */
+/*   Created: 2024/03/18 14:09:38 by aaizenbe          #+#    #+#             */
+/*   Updated: 2024/03/18 14:09:38 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free(char **str)
+int push(t_list **src, t_list **dst)
 {
-	int	i;
+    t_list *tmp;
 
-	i = 0;
-	while (str[i])
-		i++;
-	while (i >= 0)
-		free(str[i--]);
+    if (!*src)
+        return (0);
+    tmp = *src;
+    *src = (*src)->next;
+    tmp->next = *dst;
+    *dst = tmp;
+    return (1);
 }
 
-void ft_free_stack(t_list **stack)
+void pa(t_list **stack_a, t_list **stack_b)
 {
-    t_list	*tmp;
-
-    while (*stack)
+    if (push(stack_b, stack_a))
     {
-        tmp = *stack;
-        *stack = (*stack)->next;
-        free(tmp);
+        write(1, "pa\n", 3);
     }
-    free(*stack);
 }
+
+void pb(t_list **stack_a, t_list **stack_b)
+{
+    if (push(stack_a, stack_b))
+    {
+        write(1, "pb\n", 3);
+    }
+}
+
