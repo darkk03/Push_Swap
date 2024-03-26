@@ -31,7 +31,7 @@ typedef struct s_list
 
 int main(int argc, char **argv);
 void	fill_stack(t_list **stack, int argc, char **argv);
-int check_params(int argc, char **argv, t_list **stack_a);
+int check_params(int argc, char **argv);
 void sort(t_list **stack_a, t_list **stack_b);
 
 // libft
@@ -48,6 +48,9 @@ char	**ft_split(char const *s, char c);
 
 int	ft_atoi(const char *str);
 void	index_stack(t_list **stack);
+t_list	*get_next_min(t_list **stack);
+int	get_distance(t_list **stack, int index);
+int	get_min(t_list **stack, int val);
 
 // push
 
@@ -84,13 +87,14 @@ void	radix_sort(t_list **stack_a, t_list **stack_b);
 // checker utils
 
 int is_number(char *str);
-int is_duplicate(char **args, int i);
+int is_duplicate(int index, char **argv, int i);
 int is_sorted(t_list *stack);
 
 // memory
 
 void	ft_free(char **str);
 void ft_free_stack(t_list **stack);
+void	ft_exit(char *msg);
 
 // sort 
 

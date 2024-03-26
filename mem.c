@@ -35,3 +35,10 @@ void ft_free_stack(t_list **stack)
     }
     free(*stack);
 }
+
+void	ft_exit(char *msg)
+{
+	while (*msg)
+        write(1, msg++, 1);
+	exit(0);
+}

@@ -20,28 +20,22 @@ int is_number(char *str)
     while (str[i])
     {
         if (str[i] < '0' || str[i] > '9')
-        {
-            write(1, "not_a_number\n", 13);
-            return (-1);
-        }
+            return (0);
         i++;
     }
-    return (0);
+    return (1);
 }
 
-int is_duplicate(char **args, int index)
+int is_duplicate(int index, char **argv, int i)
 {
-    int j = 0;
-    while (args[j])
-    {
-        if (index != j && ft_atoi(args[index]) == ft_atoi(args[j]))
-        {
-            write(1, "duplicate\n", 10);
-            return (-1);
-        }
-        j++;
-    }
-    return (0);
+    i++;
+	while (argv[i])
+	{
+		if (ft_atoi(argv[i]) == index)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int is_sorted(t_list *stack)

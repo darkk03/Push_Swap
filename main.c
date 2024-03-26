@@ -37,7 +37,7 @@ void	fill_stack(t_list **stack, int argc, char **argv)
 		ft_free(args);
 }
 
-int check_params(int argc, char **argv, t_list **stack_a)
+int check_params(int argc, char **argv)
 {
     int i;
     long tmp;
@@ -56,15 +56,15 @@ int check_params(int argc, char **argv, t_list **stack_a)
     {
         tmp = ft_atoi(args[i]);
         if (tmp > 2147483647 || tmp < -2147483648)
-            write(1, "limit\n", 6);
-        if (is_number(args[i]) == -1)
-            return (-1);
-        if (is_duplicate(args, i) == -1)
-            return (-1);
-        if (is_sorted(*stack_a) == -1)
-            return (-1);
+            ft_exit("limit\n");
+        if (!is_number(args[i]))
+            ft_exit("not_a_number\n");
+        if (is_duplicate(tmp, args, i))
+            ft_exit("duplicate\n");
         i++;
     }
+    if (argc == 2)
+        ft_free(args);
     return (0);
 }
 
@@ -89,17 +89,19 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 		return (-1);
+	check_params(argc, argv);
     stack_a = (t_list **)malloc(sizeof(t_list));
     stack_b = (t_list **)malloc(sizeof(t_list));
     *stack_a = NULL;
     *stack_b = NULL;
     fill_stack(stack_a, argc, argv);
-	if(check_params(argc, argv, stack_a) == -1)
-    {
-        ft_free_stack(stack_a);
-        ft_free_stack(stack_b);
-        return (-1);
-    }
+	if (is_sorted(*stack_a))
+	{
+        write(1, "stack_is_sorted\n", 16);
+		ft_free_stack(stack_a);
+		ft_free_stack(stack_b);
+		return (0);
+	}
     sort(stack_a, stack_b);
     while (*stack_a)
 	{

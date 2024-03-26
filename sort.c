@@ -40,54 +40,51 @@ void sort_3(t_list **stack_a)
         rra(stack_a);
 }
 
-
-void sort_4(t_list **stack_a, t_list **stack_b)
+void	sort_4(t_list **stack_a, t_list **stack_b)
 {
-    int i;
-    int size;
+	int	dist;
 
-    i = 0;
-    size = ft_lstsize(*stack_a);
-    while (i < size - 3)
-    {
-        if ((*stack_a)->index == 0)
-        {
-            pb(stack_a, stack_b);
-            i++;
-        }
-        else
-            ra(stack_a);
-    }
-    sort_3(stack_a);
-    while (i > 0)
-    {
-        pa(stack_a, stack_b);
-        i--;
-    }
+	if (is_sorted(*stack_a))
+		return ;
+	dist = get_distance(stack_a, get_min(stack_a, -1));
+	if (dist == 1)
+		ra(stack_a);
+	else if (dist == 2)
+	{
+		ra(stack_a);
+		ra(stack_a);
+	}
+	else if (dist == 3)
+		rra(stack_a);
+	if (is_sorted(*stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	sort_3(stack_a);
+	pa(stack_a, stack_b);
 }
 
 void	sort_5(t_list **stack_a, t_list **stack_b)
 {
-    int	i;
-    int	size;
+	int	dist;
 
-    i = 0;
-    size = ft_lstsize(*stack_a);
-    while (i < size - 3)
-    {
-        if ((*stack_a)->index == 0)
-        {
-            pb(stack_a, stack_b);
-            i++;
-            size--;
-        }
-        else
-            ra(stack_a);
-    }
-    sort_3(stack_a);
-    while (i > 0)
-    {
-        pa(stack_a, stack_b);
-        i--;
-    }
+	dist = get_distance(stack_a, get_min(stack_a, -1));
+	if (dist == 1)
+		ra(stack_a);
+	else if (dist == 2)
+	{
+		ra(stack_a);
+		ra(stack_a);
+	}
+	else if (dist == 3)
+	{
+		rra(stack_a);
+		rra(stack_a);
+	}
+	else if (dist == 4)
+		rra(stack_a);
+	if (is_sorted(*stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	sort_4(stack_a, stack_b);
+	pa(stack_a, stack_b);
 }
