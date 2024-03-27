@@ -6,38 +6,37 @@
 /*   By: aaizenbe <aaizenbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:31:30 by aaizenbe          #+#    #+#             */
-/*   Updated: 2024/03/24 22:31:30 by aaizenbe         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:46:55 by aaizenbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_3(t_list **stack_a)
+void	sort_3(t_list **stack_a)
 {
-    int a;
-    int b;
-    int c;
+	int	a;
+	int	b;
+	int	c;
 
-    a = (*stack_a)->value;
-    b = (*stack_a)->next->value;
-    c = (*stack_a)->next->next->value;
-
-    if (a > b && b < c && a < c)
-        sa(stack_a);
-    else if (a > b && b < c && a > c)
-        ra(stack_a);
-    else if (a > b && b > c)
-    {
-        sa(stack_a);
-        rra(stack_a);
-    }
-    else if (a < b && b > c && a < c)
-    {
-        sa(stack_a);
-        ra(stack_a);
-    }
-    else if (a < b && b > c && a > c)
-        rra(stack_a);
+	a = (*stack_a)->value;
+	b = (*stack_a)->next->value;
+	c = (*stack_a)->next->next->value;
+	if (a > b && b < c && a < c)
+		sa(stack_a);
+	else if (a > b && b < c && a > c)
+		ra(stack_a);
+	else if (a > b && b > c)
+	{
+		sa(stack_a);
+		rra(stack_a);
+	}
+	else if (a < b && b > c && a < c)
+	{
+		sa(stack_a);
+		ra(stack_a);
+	}
+	else if (a < b && b > c && a > c)
+		rra(stack_a);
 }
 
 void	sort_4(t_list **stack_a, t_list **stack_b)
